@@ -7,7 +7,7 @@ Overview
 ========
 
 - Run the program
-- Select CSV's with buy and sell transactions
+- Select CSV's with buy and sell transactions (ensure to include all years so it can use stocks bought more than a year ago)
 - It's built to work right out of the box with CommSec EOFY transaction summary CSV's
 - It will also work for any CSV as long as it's in the following format (header names must be the same, except N/A which is ignored)
 
@@ -26,4 +26,5 @@ Notes
 
 - For Windows download: **commsec_cgt_calculator.exe**
 - For Mac download: **commsec_cgt_calculator.app**
+
 - For Linux download: **commsec_cgt_calculator.bin**
