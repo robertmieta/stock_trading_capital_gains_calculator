@@ -7,9 +7,15 @@ Overview
 ========
 
 - Run the program
-- Select CSV's with buy and sell transactions (ensure to include all years so it can use stocks bought more than a year ago)
+- Select CSV's with buy and sell transactions
+- Ensure to include a CSV for each year of trading (so it can sell portions of shares bought over a year ago)
 - It's built to work right out of the box with CommSec EOFY transaction summary CSV's
 - It will also work for any CSV as long as it's in the following format (header names must be the same, except N/A which is ignored)
+  - **Code:** Stock Ticker
+  - **Date:** The date in DD/MM/YYYY format
+  - **Type:** Either Buy or Sell
+  - **Quantity:** Number of Shares
+  - **Total Value:** Amount paid for shares (if **Buy** transaction, include brokerage fee)
 
 Code | N/A  | Date       | Type | Quantity | N/A | N/A | N/A | N/A | N/A | Total Value
 -----|------|------------|------|----------|-----|-----|-----|-----|-----|--- 
@@ -26,5 +32,4 @@ Notes
 
 - For Windows download: **commsec_cgt_calculator.exe**
 - For Mac download: **commsec_cgt_calculator.app**
-
 - For Linux download: **commsec_cgt_calculator.bin**
