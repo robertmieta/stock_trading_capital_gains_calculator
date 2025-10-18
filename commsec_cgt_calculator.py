@@ -231,9 +231,18 @@ def calculate_capital_gains(data_dict: Dict[str, List[Dict[str, Any]]], start_da
 
                         transaction_records_str += f"  {buy_transaction['remaining_shares']} shares of which were bought on {buy_transaction['date'].strftime('%d/%m/%Y')} for "
                         if buy_transaction["remaining_shares"] != buy_transaction["quantity"]:
-                            transaction_records_str += f"approx ${partial_purchase_price:.2f} (fractional cost including brokerage fee).\n"
+                            transaction_records_str += f"approx ${partial_purchase_price:.2f} (fractional cost including brokerage fee)."
                         else:
-                            transaction_records_str += f"${partial_purchase_price:.2f} (cost including brokerage fee).\n"
+                            transaction_records_str += f"${partial_purchase_price:.2f} (cost including brokerage fee)."
+
+                        if capital_gain >= 0:
+                            transaction_records_str += f" Capital Gain: ${capital_gain:.2f}"
+                            if twelve_months_or_more:
+                                transaction_records_str += f" (or ${(capital_gain / 2):.2f} after 12 month 50% discount for tax purposes)\n"
+                            else:
+                                transaction_records_str += "\n"
+                        else:
+                            transaction_records_str += f" Capital Loss: -${abs(capital_gain):.2f}\n"
 
                         if twelve_months_or_more:
                             gains_by_stock_twelve_month_split[stock_name]["twelve_months"] += capital_gain
@@ -256,10 +265,19 @@ def calculate_capital_gains(data_dict: Dict[str, List[Dict[str, Any]]], start_da
                         capital_gain: float = math.ceil((partial_sell_price - partial_purchase_price) * 100) / 100.0
 
                         transaction_records_str += f"  {remaining_to_sell} shares of which were bought on {buy_transaction['date'].strftime('%d/%m/%Y')} for "
-                        if buy_transaction["remaining_shares"] != buy_transaction["quantity"]:
-                            transaction_records_str += f"approx ${partial_purchase_price:.2f} (fractional cost including brokerage fee).\n"
+                        if buy_transaction["remaining_shares"] != buy_transaction["quantity"] or buy_transaction["remaining_shares"] != remaining_to_sell:
+                            transaction_records_str += f"approx ${partial_purchase_price:.2f} (fractional cost including brokerage fee)."
                         else:
-                            transaction_records_str += f"${partial_purchase_price:.2f} (cost including brokerage fee).\n"
+                            transaction_records_str += f"${partial_purchase_price:.2f} (cost including brokerage fee)."
+
+                        if capital_gain >= 0:
+                            transaction_records_str += f" Capital Gain: ${capital_gain:.2f}"
+                            if twelve_months_or_more:
+                                transaction_records_str += f" (or ${(capital_gain / 2):.2f} after 12 month 50% discount for tax purposes)\n"
+                            else:
+                                transaction_records_str += "\n"
+                        else:
+                            transaction_records_str += f" Capital Loss: -${abs(capital_gain):.2f}\n"
 
                         if twelve_months_or_more:
                             gains_by_stock_twelve_month_split[stock_name]["twelve_months"] += capital_gain
